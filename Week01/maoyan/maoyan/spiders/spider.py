@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import scrapy
+import scrapy,time
 from bs4 import BeautifulSoup
 from maoyan.items import MaoyanItem
 
@@ -19,12 +19,13 @@ class SpiderSpider(scrapy.Spider):
     def start_requests(self):
         # for i in range(0,10):
         # 只取前十
-        for i in range(0,1):
-            url = f'https://maoyan.com/board/4?offset={i*10}'
+        url = f'https://maoyan.com/board/4?offset=0'
+        yield scrapy.Request(url=url, callback=self.parse)
+            # url = f'https://maoyan.com/board/4?offset={i*10}'
             # url 请求访问的网址
             # callback 回调函数，引擎会将下载好的页面（Response 对象）发送给该方法，执行数据分析
             # 这里可以使用 callback 指定新的函数，不是用 parse 作为默认的回调参数
-            yield scrapy.Request(url=url, callback=self.parse)
+            # yield scrapy.Request(url=url, callback=self.parse)
 
     # 解析函数
     def parse(self, response):
@@ -41,7 +42,8 @@ class SpiderSpider(scrapy.Spider):
 
     def parse2(self, response):
         item = response.meta['item']
-        soup = BeautifulSoup(response.text, 'html.ppwdarser')
+        soup = BeautifulSoup(response.text, 'html.parser')
         movie_type = soup.find('li', attrs={'class': 'ellipsis'}).get_text().strip()
         item['movie_type'] = movie_type
+        time.sleep(3)
         yield item

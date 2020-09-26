@@ -68,6 +68,9 @@ DOWNLOAD_DELAY = 2
 #ITEM_PIPELINES = {
 #    'maoyan.pipelines.MaoyanPipeline': 300,
 #}
+ITEM_PIPELINES = {
+   'maoyan.pipelines.MaoyanPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
