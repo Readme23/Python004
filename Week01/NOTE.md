@@ -1,5 +1,5 @@
 学习笔记
-# 用 requests 写一个简单的爬虫
+## 用 requests 写一个简单的爬虫
 ## print 
   - python 的 print 字符串前面加f表示格式化字符串，加f后可以在字符串里面使用用花括号括起来的变量和表达式，如果字符串里面没有表达式，那么前面加不加f输出应该都一样
 ## requests 模块
@@ -20,13 +20,11 @@
 ## 获取 response 的内容
   - response.text
 
-# 使用 beautifulsoup 解析爬取到的网页
+## 使用 beautifulsoup 解析爬取到的网页
 ## bs4 官网：https://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/
   - from bs4 import BeautifulSoup as bs
   - 解析网页
-    ```
-    bs_info = bs(response.text, 'html.parser')
-    ```
+    - bs_info = bs(response.text, 'html.parser')
 ## 利用浏览器“查找”功能找到对应内容的标签
   - eg.
   ```
@@ -37,35 +35,34 @@
         print(atag.get('title',))
         # 获取电影链接
         print('https://maoyan.com'+atag.get('href'))
-    ```
-# 使用 XPath 解析网页
+  ```
+
+## 使用 XPath 解析网页
 ## 获取 XPath
   - 需要 pip3 install lxml
+    - import lxml.etree
   - 打开调试页面，选择指针，鼠标右键可以选择复制 XPath，另外可以在调试页面利用搜索快捷键检查获取到的 XPath 对不对
   eg.
-  ```
-  my_url = 'https://maoyan.com/board/4'
-  # 请求返回
-  response = requests.get(my_url,headers=header)
-  # 使用 bs 解析 html 网页
-  bs_info = bs(response.text, 'html.parser')
-  # http 返回码
-  print(f'返回码是：{response.status_code}')
-  # xml 化处理
-  selector = lxml.etree.HTML(response.text)
-  # 电影名称
-  file_name = selector.xpath('//*[@id="app"]/div/div/div[1]/dl/dd[1]/div/div/div[1]/p[1]/a/text()')
-  ```
+    - my_url = 'https://maoyan.com/board/4'
+### 请求返回
+  - response = requests.get(my_url,headers=header)
+### 使用 bs 解析 html 网页
+  - bs_info = bs(response.text, 'html.parser')
+### http 返回码
+  - print(f'返回码是：{response.status_code}')
+### xml 化处理
+  - selector = lxml.etree.HTML(response.text)
+### 电影名称
+  - file_name = selector.xpath('//*[@id="app"]/div/div/div[1]/dl/dd[1]/div/div/div[1]/p[1]/a/text()')
 ## 利用 pandas 保存数据
   - 需要 pip3 install pandas
     - import pandas as pd
   - eg.
-  ```
-  # 构造数据格式
-  data_list = [file_name, plan_date]
-  movie_maoyan = pd.DataFrame(data = data_list)
-  # 写入本地文件
-  movie_maoyan.to_csv('./movie_douban.csv, encoding=utf-8, index=False, header=False')
+### 构造数据格式
+  - data_list = [file_name, plan_date]
+   - movie_maoyan = pd.DataFrame(data = data_list)
+### 写入本地文件
+  - movie_maoyan.to_csv('./movie_douban.csv, encoding=utf-8, index=False, header=False')
 
 ## 实现爬虫的自动翻页功能
   - eg.
@@ -85,7 +82,7 @@
 
 ## scrapy 架构官方文档介绍
   - Scrapy 架构官方文档介绍： https://docs.scrapy.org/en/latest/topics/architecture.html
-  ![架构图](./scrapy架构图.png)
+  ![架构图](./架构图.png)
   - 核心组件
   ![核心组件](./核心组件.png)
   - 工作流程
@@ -98,6 +95,18 @@
     - scrapy startproject project_name
     - scrapy genspider example example.com
   - scrapy 目录结构：
-  ![目录结构](./scrapy目录结构.png)
+  ![目录结构](./目录结构.png)
   - 运行
     - scrapy crawl spider_name
+
+## XPath 详解
+  - // 表示可匹配任意长度，eg. //div[@class="hd"] 表示寻找 div 标签中 class 属性值为 hd
+  - / 表示匹配到的第一个符合条件的
+  - . 表示从当前的匹配位置开始找
+  - .. 表示从当前位置的上一层查找
+  - 取内容 eg. './a/span/text()' 表示当前位置的 a 标签下的 span 标签的值
+  - 取属性 eg. './a/@href' 表示当前位置的 a 标签的 href 属性
+### 官方文档
+  - Scrapy Xpath 官方学习文档： https://docs.scrapy.org/en/latest/topics/selectors.html#working-with-xpaths
+  - Xpath 中文文档：https://www.w3school.com.cn/xpath/index.asp
+  - Xpath 英文文档：https://www.w3.org/TR/2017/REC-xpath-31-20170321/#nt-bnf

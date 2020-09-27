@@ -2,6 +2,7 @@
 import scrapy,time
 from bs4 import BeautifulSoup
 from maoyan.items import MaoyanItem
+from scrapy.selector import Selector
 
 class SpiderSpider(scrapy.Spider):
     # 定义爬虫名字
@@ -29,21 +30,35 @@ class SpiderSpider(scrapy.Spider):
 
     # 解析函数
     def parse(self, response):
-        soup = BeautifulSoup(response.text, 'html.parser')
-        title_list = soup.find_all('div', attrs={'class': 'board-item-main'})
-        for i in title_list:
-            # 这里新增的 item 需要在 items.py 中相应增加
+        # bs4 写法
+        # soup = BeautifulSoup(response.text, 'html.parser')
+        # title_list = soup.find_all('div', attrs={'class': 'board-item-main'})
+        # for i in title_list:
+        #     # 这里新增的 item 需要在 items.py 中相应增加
+        #     item = MaoyanItem()
+        #     title = i.find('a').get_text('title')
+        #     link = 'https://maoyan.com'+i.find('a').get('href')
+        #     item['title'] = title
+        #     item['link'] = link
+        #     yield scrapy.Request(url=link, meta={'item': item}, callback=self.parse2)
+        # xpath 写法
+        movies = Selector(response=response).xpath('//div[@class="movie-item-info"]')
+        for movie in movies:
             item = MaoyanItem()
-            title = i.find('a').get_text('title')
-            link = 'https://maoyan.com'+i.find('a').get('href')
+            # extract 方法会将输出的 xpath 数据列表化，first 是取第一个
+            title = movie.xpath('./p[@class="name"]/a/@title').extract_first().strip()
+            link = 'https://maoyan.com'+movie.xpath('./p[@class="name"]/a/@href').extract_first().strip()
             item['title'] = title
             item['link'] = link
             yield scrapy.Request(url=link, meta={'item': item}, callback=self.parse2)
 
     def parse2(self, response):
         item = response.meta['item']
-        soup = BeautifulSoup(response.text, 'html.parser')
-        movie_type = soup.find('li', attrs={'class': 'ellipsis'}).get_text().strip()
+        # bs4 写法
+        # soup = BeautifulSoup(response.text, 'html.parser')
+        # movie_type = soup.find('li', attrs={'class': 'ellipsis'}).get_text().strip()
+        # xpath 写法
+        movie_type = Selector(response=response).xpath('//div[@class="movie-brief-container"]/ul/li[@class="ellipsis"]/a/text()').extract()
         item['movie_type'] = movie_type
         time.sleep(3)
         yield item
