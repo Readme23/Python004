@@ -1,8 +1,6 @@
 ## 一、scrapy 并发参数优化原理
-1. Twisted 学习参考文档：
-https://pypi.org/project/Twisted/
-2. asyncio — 异步 I/O 学习文档
-https://docs.python.org/zh-cn/3.7/library/asyncio.html
+1. [Twisted 学习参考文档](https://pypi.org/project/Twisted/)
+2. [asyncio — 异步 I/O 学习文档](https://docs.python.org/zh-cn/3.7/library/asyncio.html)
 3. settings.py 参数调优
 ```
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
@@ -55,8 +53,8 @@ d.addBoth(stop)
 reactor.run()
 ```
 ## 二、多进程：进程的创建
-1. os 模块学习文档：https://docs.python.org/zh-cn/3.7/tutorial/stdlib.html#operating-system-interface
-2. multiprocessing – 基于进程的并行学习文档： https://docs.python.org/zh-cn/3.7/library/multiprocessing.html
+1. [os 模块学习文档](https://docs.python.org/zh-cn/3.7/tutorial/stdlib.html#operating-system-interface)
+2. [multiprocessing – 基于进程的并行学习文档](https://docs.python.org/zh-cn/3.7/library/multiprocessing.html)
 3. 多进程、多线程、协程的目的都是希望尽可能多处理任务，产生新的进程可以使用一下两种方式：
   - os.fork()
   - eg1.
@@ -199,7 +197,7 @@ for i in range(2):
 # 这和指定target效果是一样的，只是将函数封装进类之后便于理解和调用。
 ```
 ## 四、多进程：使用队列实现进程间的通信
-1. 进程之间的两种通信通道：https://docs.python.org/zh-cn/3.7/library/multiprocessing.html#exchanging-objects-between-processes
+1. [进程之间的两种通信通道](https://docs.python.org/zh-cn/3.7/library/multiprocessing.html#exchanging-objects-between-processes)
 2. 为什么不能使用变量作为进程间共享数据了：进程间不能共享堆栈信息资源
   - eg.
 ```
@@ -306,8 +304,8 @@ if __name__ == "__main__":
 # 父进程结束
 ```
   - 管道
-  1. 进程之间的两种通信通道：https://docs.python.org/zh-cn/3.7/library/multiprocessing.html#exchanging-objects-between-processes
-  2. 管道和队列参考文档：https://docs.python.org/zh-cn/3.7/library/multiprocessing.html#pipes-and-queues
+  1. [进程之间的两种通信通道](https://docs.python.org/zh-cn/3.7/library/multiprocessing.html#exchanging-objects-between-processes)
+  2. [管道和队列参考文档](https://docs.python.org/zh-cn/3.7/library/multiprocessing.html#pipes-and-queues)
   - 代码示例
 ```
 # 管道
@@ -362,7 +360,7 @@ if __name__ == '__main__':
 # 这些共享对象将是进程和线程安全的。
 ```
 4. 资源的抢占：加锁机制
-  - 进程间的同步学习文档：https://docs.python.org/zh-cn/3.7/library/multiprocessing.html#synchronization-between-processes
+  - [进程间的同步学习文档](https://docs.python.org/zh-cn/3.7/library/multiprocessing.html#synchronization-between-processes)
   - 代码示例，无锁
 ```
 # 进程锁Lock
@@ -434,10 +432,8 @@ from ctypes import c_char_p
 str_val = mp.Value(c_char_p, b"Hello World")
 ```
 ## 五、进程池
-1. 进程池学习文档：
-https://docs.python.org/zh-cn/3.7/library/multiprocessing.html#module-multiprocessing.pool
-2. 迭代器学习文档：
-https://docs.python.org/zh-cn/3.7/library/stdtypes.html#iterator-types
+1. [进程池学习文档](https://docs.python.org/zh-cn/3.7/library/multiprocessing.html#module-multiprocessing.pool)
+2. [迭代器学习文档](https://docs.python.org/zh-cn/3.7/library/stdtypes.html#iterator-types)
 3. 代码示例
 ```
 # Pool 类表示一个工作进程池
@@ -583,8 +579,8 @@ thread1.join()
 print(thread1.is_alive())
 ```
 ## 七、线程锁
-1. 锁对象学习文档：https://docs.python.org/zh-cn/3.7/library/threading.html#lock-objects
-2. 递归锁对象：https://docs.python.org/zh-cn/3.7/library/threading.html#rlock-objects
+1. [锁对象学习文档](https://docs.python.org/zh-cn/3.7/library/threading.html#lock-objects)
+2. [递归锁对象](https://docs.python.org/zh-cn/3.7/library/threading.html#rlock-objects)
 3. 代码示例
   - eg1. 无锁
 ```
