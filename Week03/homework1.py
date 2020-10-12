@@ -72,7 +72,6 @@ if __name__ == '__main__':
 
     result_list=[]
 
-    # 方便 CTRL + C 退出程序
     try:
         n = int(input('请输入 0 到 60 的整数:'))
         if 0 <= n <= 60:
