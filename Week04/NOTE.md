@@ -124,7 +124,7 @@ emails[mask]
 ```
 2. dataframe
   - 理解为 Excel 中的行列结构
-  ![dataframe数据结构](dataframe数据结构)
+  ![dataframe数据结构](dataframe数据结构.png)
   - 创建 dataframe 数据类型代码示例
 ```
 import pandas as pd
