@@ -1,0 +1,33 @@
+import pandas as pd
+
+airports = pd.read_csv('./data.csv')
+
+1. SELECT * FROM data;
+  # airports
+
+2. SELECT * FROM data LIMIT 10;
+  # airports.head(10)
+
+3. SELECT id FROM data;  //id 是 data 表的特定一列
+  # airports['id']
+
+4. SELECT COUNT(id) FROM data;
+  # airports.['id'].size()
+
+5. SELECT * FROM data WHERE id<1000 AND age>30;
+  # airports[(airports['id'] < 1000) & (airports['age'] > 30)]
+
+6. SELECT id,COUNT(DISTINCT order_id) FROM table1 GROUP BY id;
+  # airports.groupby('id').size()
+
+7. SELECT * FROM table1 t1 INNER JOIN table2 t2 ON t1.id = t2.id;
+  # airports.merge(table1, table2, on='id')
+
+8. SELECT * FROM table1 UNION SELECT * FROM table2;
+  # airports.concat([df1, df2])
+
+9. DELETE FROM table1 WHERE id=10;
+  # airports.loc[airports['id'] <= 9]
+
+10. ALTER TABLE table1 DROP COLUMN column_name;
+  # airports.drop[df['column_name']]
