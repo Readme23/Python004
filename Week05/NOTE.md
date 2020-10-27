@@ -364,7 +364,7 @@ def year(request, year):
 ```
 3. get_object_or_404()
   - 在给定的模型管理器（model manager）上调用 get()，但他会引发 Http404 而不是模型的 DoesNotExist 异常
-## 使用 orm 创建数据表
+## 九、使用 orm 创建数据表
 ### 模型与数据库
 1. 每个模型都是一个 python 的类，这些类继承 django.db.models.Model
 2. 模型类的每个属性都相当于一个数据库的字段
