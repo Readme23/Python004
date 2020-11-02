@@ -9,10 +9,16 @@ def index(request):
 
 def movies(request):
     title = Movies.objects.get(id=44).movie_title
-    short_evaluate = Movies.objects.values_list('movie_evaluate').filter(movie_title=title)[0:3]
+    all_evaluate = Movies.objects.values_list('movie_evaluate').filter(movie_title=title)
+    short_evaluate = []
     star_l = []
-    for i in range(3):
-        star = Movies.objects.get(movie_evaluate=short_evaluate[i][0]).movie_star
-        star_l.append(star)
-    
+    # 判断评论星级
+    for i in range(len(all_evaluate)):
+        if Movies.objects.get(movie_evaluate=all_evaluate[i][0]).movie_star in ['力荐','推荐','一般']:
+            short_evaluate.append(all_evaluate[i])
+            star = Movies.objects.get(movie_evaluate=all_evaluate[i][0]).movie_star
+            star_l.append(star)
+        else:
+            pass
+
     return render(request, 'index.html', locals())
