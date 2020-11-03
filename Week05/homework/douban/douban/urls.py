@@ -18,5 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('', include('index.urls')),
-    path('dianying/', include('index.urls')),
+    path('search', include('index.urls')),
 ]
