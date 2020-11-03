@@ -10,16 +10,16 @@ def index(request):
 def search(request):
     if request.method == "GET":
         title = request.GET.get('q')
-        # 如果前端传参为空，默认展示《美丽人生》
         if title:
             pass
         else:
-           title = Movies.objects.get(id=44).movie_title
+            # 如果前端传参为空，默认展示《美丽人生》
+            title = Movies.objects.get(id=44).movie_title
 
     all_evaluate = Movies.objects.values_list('movie_evaluate').filter(movie_title=title)
     short_evaluate = []
     star_l = []
-    
+
     # 判断评论星级
     for i in range(len(all_evaluate)):
         if Movies.objects.get(movie_evaluate=all_evaluate[i][0]).movie_star in ['力荐','推荐','一般']:
