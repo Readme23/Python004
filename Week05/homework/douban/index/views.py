@@ -9,7 +9,7 @@ def index(request):
 
 def search(request):
     if request.method == "GET":
-        title = request.GET.get('q').strip()
+        title = request.GET.get('q')
         if title:
             pass
         else:
