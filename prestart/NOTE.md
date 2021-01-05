@@ -32,3 +32,5 @@ index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 ## 虚拟环境：
   - python3 -m venv venvname (注：venv 是 Python 的一个模块)
   - 进入某个虚拟环境：source venvname/bin/activate
+  - 虚拟环境中第三方包位置：/Users/apple/venv1/lib/python3.7/site-packages
+  - 查看依赖包，进入虚拟环境：pip3 freeze ； pip3 freeze > requirements.txt
