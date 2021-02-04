@@ -115,3 +115,55 @@ def echo_server():
 if __name__ == '__main__':
     echo_server()
 ```
+## 二、前端基础
+1. ![前端基础](./picture/前端基础.png)
+## 三、捕获异常
+1. 自定义异常
+```
+class UserInputError(Exception):
+    def __init__(self, ErrorInfo):
+        super().__init__(self, ErrorInfo)
+        self.errorinfo = ErrorInfo
+    
+    def __str__(self):
+        return self.errorinfo
+
+userinput = 'a'
+
+try:
+    if (not userinput.isdigt()):
+        raise UserInputError('用户输入错误')
+except UserInputError as ue:
+    print('ue')
+finally:
+    del userinput
+```
+2. 美化异常的第三方包：pretty_errors
+3. 文件读取异常
+```
+class Open:
+    def __enter__(self):
+        print("open")
+
+    def __exit__(self, type, value, trace):
+        print("close")
+    
+    def __call__(self):
+        pass
+
+with Open() as f:
+    pass
+# 上下文协议
+```
+4. 深入了解 http 协议
+   - requests.get 带参请求
+```
+import requests
+
+payload = {'key1':'value1', 'key2':['value2', 'value3']}
+
+r = requests.get('http://xxx.com', params=payload)
+
+r.url
+```
+5. 深入了解 POST 方式和 cookie
